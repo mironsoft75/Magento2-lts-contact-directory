@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Lts_Contact::contact_head" title="Lozingle" module="Lts_Contact" sortOrder="30" resource="Lts_Contact::contact_head" />
+        <add id="Lts_Contact::contact" title="Contact List" module="Lts_Contact" sortOrder="10" parent="Lts_Contact::contact_head" action="contact/contact/index" resource="Lts_Contact::contact" />
+        <add id="Lts_Contact::contact_configuration" title="Configuration" module="Lts_Contact" sortOrder="20" parent="Lts_Contact::contact_head" action="adminhtml/system_config/edit/section/lozingle" resource="Lts_Contact::contact_configuration" />
+    </menu>
+</config>
