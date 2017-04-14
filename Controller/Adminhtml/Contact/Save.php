@@ -34,7 +34,16 @@ class Save extends Contact
                 $contactModel->load($id);
             }
 
-            $contactModel->setData($data);
+            // save image data and remove from data array
+            if (isset($data['image'])) {
+                $imageData = $data['image'];
+                unset($data['image']);
+            } else {
+                $imageData = array();
+            }
+
+
+            $contactModel->addData($data);
 
             $this->_eventManager->dispatch(
                 'contact_contact_prepare_save',
@@ -42,6 +51,19 @@ class Save extends Contact
             );
 
             try {
+                $imageHelper = $this->_objectManager->get('Lts\Contact\Helper\Data');
+
+                if (isset($imageData['delete']) && $contactModel->getImage()) {
+                    $imageHelper->removeImage($contactModel->getImage());
+                    $contactModel->setImage(null);
+                }
+
+                $imageFile = $imageHelper->uploadImage('image');
+
+                if ($imageFile) {
+                    $contactModel->setImage($imageFile);
+                }
+
                 $contactModel->save();
                 $this->messageManager->addSuccess(__('Contact Details Saved'));
                 $this->_getSession()->setFormData(false);
