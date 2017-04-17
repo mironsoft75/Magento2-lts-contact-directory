@@ -54,8 +54,8 @@ class Save extends Contact
             try {
                 $imageHelper = $this->_objectManager->get('Lts\Contact\Helper\Data');
                 if (isset($imageData['delete']) && $contactModel->getImage()) {
-
-                    $imageHelper->removeImage($contactModel->getImage());
+                    
+                    $imageHelper->removeImage(substr($contactModel->getImage(),8));
                     $imageFile = '';
                     $contactModel->setImage($imageFile);
                 }
@@ -63,7 +63,7 @@ class Save extends Contact
                     $imageFile = $imageHelper->uploadImage('image');
 
                     if ($imageFile) {
-                        $contactModel->setImage($imageFile);
+                        $contactModel->setImage('contact/'.$imageFile);
                     }
                     else{
                         $contactModel->setImage($contactModel->getImage());
