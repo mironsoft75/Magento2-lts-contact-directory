@@ -28,13 +28,14 @@ class Save extends Contact
         if ($data) {
 
             $contactModel = $this->_contactFactory->create();
-            $id = $this->getRequest()->getParam('id');
+
+            $id = $this->getRequest()->getParam('entity_id');
+
 
             if ($id) {
                 $contactModel->load($id);
             }
-
-            // save image data and remove from data array
+            // save image data and not remove from data array
             if (isset($data['image'])) {
                 $imageData = $data['image'];
                 unset($data['image']);
@@ -52,16 +53,21 @@ class Save extends Contact
 
             try {
                 $imageHelper = $this->_objectManager->get('Lts\Contact\Helper\Data');
-
                 if (isset($imageData['delete']) && $contactModel->getImage()) {
+
                     $imageHelper->removeImage($contactModel->getImage());
-                    $contactModel->setImage(null);
-                }
-
-                $imageFile = $imageHelper->uploadImage('image');
-
-                if ($imageFile) {
+                    $imageFile = '';
                     $contactModel->setImage($imageFile);
+                }
+                else{
+                    $imageFile = $imageHelper->uploadImage('image');
+
+                    if ($imageFile) {
+                        $contactModel->setImage($imageFile);
+                    }
+                    else{
+                        $contactModel->setImage($contactModel->getImage());
+                    }
                 }
 
                 $contactModel->save();
