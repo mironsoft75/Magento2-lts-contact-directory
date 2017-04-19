@@ -1,4 +1,9 @@
 # Magento2-lts-contact-directory
-Employee Contact Details Extension
 
-I have Started to create new magento 2 Extension to store empolyee details In a company from Admin Panel. 
+Employee Contact Details store Extension and showing Map in Contact Page.
+
+# Process to use this Extention:
+
+Step 1: Create Folder under app/code/Lts/Contact Extract All Files and Folder.
+
+Step 2: Run Command Php bin/magento setup:upgrade and Php bin/magento cache:clean
