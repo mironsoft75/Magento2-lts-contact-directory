@@ -1,6 +1,6 @@
 # Magento2-lts-contact-directory
 
-Employee Contact Details store Extension and showing Map in Contact Page.
+Store Employee Contact Details in the Backend and showing Map in Contact Page.
 
 # Process to use this Extention:
 
